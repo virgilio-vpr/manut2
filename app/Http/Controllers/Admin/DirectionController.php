@@ -140,11 +140,10 @@ class DirectionController extends Controller
     public function choose(){
 
         $companies = $this->company->all();
-        $directions = $this->repository->all();
 
-        return view('admin.pages.directions.choose', [
-            'companies' => $companies,
-            'directions' => $directions,
+        return view('layouts.layout_livewire', [
+            'companies'    => $companies,
+
         ]);
     }
 }
