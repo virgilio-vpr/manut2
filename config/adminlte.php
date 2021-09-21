@@ -260,18 +260,50 @@ return [
                 [
                     'text'    => 'Diretoria',
                     'icon_color' => 'yellow',
-                    'route'     => 'directions.company.choose',
+                    'route' => ['choose.menu', ['type_menu' => 'direction']],
                 ],
                 [
                     'text' => 'Gerência',
                     'icon_color' => 'cyan',
-                    'url'  => '#',
+                    'route' => ['choose.menu', ['type_menu' => 'management']],
                 ],
                 [
                     'text' => 'Setor',
                     'icon_color' => 'green',
-                    'url'  => '#',
+                    'route' => ['choose.menu', ['type_menu' => 'department']],
                 ],
+            ],
+        ],
+
+        [
+            'text'    => 'Equipamentos',
+            'icon'    => 'fas fa-cogs',
+            'submenu' => [
+                [
+                    'text' => 'Exibir',
+                    'icon_color' => 'white',
+                    'route' => ['equipment.index', ['type_menu' => 'equipment']],
+                ],
+                // [
+                //     'text'    => 'Cadastrar',
+                //     'icon_color' => 'green',
+                //     'route' => ['choose.menu', ['type_menu' => 'direction']],
+                // ],
+                // [
+                //     'text' => 'Editar',
+                //     'icon_color' => 'cyan',
+                //     'route' => ['choose.menu', ['type_menu' => 'management']],
+                // ],
+                // [
+                //     'text' => 'Remover',
+                //     'icon_color' => 'red',
+                //     'route' => ['choose.menu', ['type_menu' => 'department']],
+                // ],
+                // [
+                //     'text' => 'Suspender',
+                //     'icon_color' => 'yellow',
+                //     'route' => ['choose.menu', ['type_menu' => 'department']],
+                // ],
             ],
         ],
     ],

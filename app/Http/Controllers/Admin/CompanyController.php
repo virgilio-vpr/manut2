@@ -8,7 +8,6 @@ use App\Models\Company;
 use App\Models\Direction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class CompanyController extends Controller
 {
@@ -124,8 +123,10 @@ class CompanyController extends Controller
 
         if ($request->hasFile('logo_company') && $request->logo_company->isValid()) {
 
-            if (Storage::exists($company->logo_company)) {
-                Storage::delete($company->logo_company);
+            // dd(Storage::exists($company->logo_company));
+
+            if (Storage::exists('public/'.$company->logo_company)) {
+                Storage::delete('public/'.$company->logo_company);
             }
 
             $data['logo_company'] = $request->logo_company->store("company/logo_company", 'public');

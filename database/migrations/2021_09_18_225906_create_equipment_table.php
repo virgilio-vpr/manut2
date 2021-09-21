@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDirectionsTable extends Migration
+class CreateEquipmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,20 @@ class CreateDirectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('directions', function (Blueprint $table) {
+        Schema::create('equipment', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
-            $table->string('name_direction');
-            $table->string('url_direction');
-            $table->bigInteger('cost_center')->unique();
+            $table->unsignedBigInteger('department_id');
+            $table->string('name_equipment');
+            $table->string('url_equipment');
+            $table->string('location');
             $table->string('description')->nullable();
             $table->timestamps();
 
-            $table->foreign('company_id')
+            $table->foreign('department_id')
                     ->references('id')
-                    ->on('companies')
+                    ->on('departments')
                     ->onDelete('cascade');
+
         });
     }
 
@@ -36,6 +37,6 @@ class CreateDirectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('directions');
+        Schema::dropIfExists('equipment');
     }
 }

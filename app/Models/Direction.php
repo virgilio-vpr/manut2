@@ -8,11 +8,16 @@ class Direction extends Model
 {
     protected $table = 'directions';
 
-    protected $fillable = ['logo_direction', 'name_direction', 'url_direction', 'cost_center', 'description'];
+    protected $fillable = ['name_direction' ,'url_direction', 'cost_center', 'description'];
 
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function managements()
+    {
+        return $this->hasMany(Management::class);
     }
 
     public function search($filter = null, $companyId = null)

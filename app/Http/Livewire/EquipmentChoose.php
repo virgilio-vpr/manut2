@@ -8,7 +8,7 @@ use App\Models\Direction;
 use App\Models\Management;
 use Livewire\Component;
 
-class FormChoose extends Component
+class EquipmentChoose extends Component
 {
     public $typeMenu;
     public $companyId;
@@ -19,6 +19,7 @@ class FormChoose extends Component
     public $directions = [];
     public $managements = [];
     public $departments = [];
+    public $equipments = [];
 
     public function mount($type_menu)
     {
@@ -28,22 +29,7 @@ class FormChoose extends Component
 
     protected function rules()
     {
-        if ($this->typeMenu ==  'direction') {
-            return [
-                'companyId' => 'required',
-                'directionId' => 'required',
-            ];
-        }
-
-        if ($this->typeMenu ==  'management') {
-            return [
-                'companyId' => 'required',
-                'directionId' => 'required',
-                'managementId' => 'required',
-            ];
-        }
-
-        if ($this->typeMenu ==  'department') {
+        if ($this->typeMenu ==  'equipment') {
             return [
                 'companyId' => 'required',
                 'directionId' => 'required',
@@ -58,17 +44,13 @@ class FormChoose extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function sectorSelect()
+    public function equipmentSelect()
     {
         if ($this->typeMenu ==  'direction') {
 
             $validatedData = $this->validate();
 
-            if (!$company = Company::where('id', $validatedData['companyId'])->first()) {
-                return redirect()->back();
-            }
-
-            if (!$direction = Direction::where('id', $validatedData['directionId'])->first()) {
+            if (!$this->equipments = Direction::where('id', $validatedData['directionId'])->first()) {
                 return redirect()->back();
             }
 
@@ -76,20 +58,7 @@ class FormChoose extends Component
         }
 
 
-        if ($this->typeMenu ==  'management') {
 
-            $validatedData = $this->validate();
-
-            if (!$direction = Direction::where('id', $validatedData['directionId'])->first()) {
-                return redirect()->back();
-            }
-
-            if (!$management = Management::where('id', $validatedData['managementId'])->first()) {
-                return redirect()->back();
-            }
-
-            return redirect()->route('managements.direction.index', [$direction->url_direction, $management->url_management]);
-        }
 
         if ($this->typeMenu ==  'department') {
 

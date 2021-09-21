@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreSelectDirection;
 use App\Http\Requests\StoreUpdateDirection;
 use App\Models\Company;
 use App\Models\Direction;
@@ -18,14 +19,16 @@ class DirectionController extends Controller
         $this->company = $company;
     }
 
-    public function index($urlCompany)
+    public function index($urlCompany, $urlDirection = null)
     {
         if (!$company = $this->company->where('url_company', $urlCompany)->first()) {
             return redirect()->back();
         }
-
-        $directions = $company->directions()->paginate();
-
+        if ($urlDirection !== null) {
+            $directions = $company->directions()->where('url_direction', $urlDirection)->paginate();
+        } else {
+            $directions = $company->directions()->paginate();
+        }
 
         return view('admin.pages.directions.index', [
             'company'    => $company,
@@ -135,15 +138,5 @@ class DirectionController extends Controller
         $direction->update($request->all());
 
         return redirect()->route('directions.company.index', $company->url_company);
-    }
-
-    public function choose(){
-
-        $companies = $this->company->all();
-
-        return view('layouts.layout_livewire', [
-            'companies'    => $companies,
-
-        ]);
     }
 }

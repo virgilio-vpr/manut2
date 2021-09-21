@@ -1,32 +1,33 @@
 @extends('adminlte::page')
 
-@section('title', "Diretorias da {$company->name_company}")
+@section('title', "Gerencia da {$direction->name_direction}")
 
 @section('content_header')
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{ route('companies.index') }}">Empresas</a></li>
-            <li class="breadcrumb-item active"><a href="{{ route('directions.company.index', $company->url_company) }}">Diretorias</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('directions.company.index', $company->url_company) }}">Diretorias</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('managements.direction.index', $direction->url_direction) }}">Gerências</a></li>
         </ol>
 
         <div class="col">
             <div class="row">
-                <h1>Diretorias da Empresa <strong>{{ $company->name_company }}</strong> &ensp;
-                    <a href="{{ route('directions.company.create', $company->url_company) }}" class="btn btn-success">
+                <h1>Gerências da Diretoria <strong>{{ $direction->name_direction }}</strong> &ensp;
+                    <a href="{{ route('managements.direction.create', $direction->url_direction) }}" class="btn btn-success">
                         <i class="fas fa-plus"></i>
                     </a>&ensp;&ensp;
                 </h1>
-                <a href="{{ route('companies.index') }}" class="btn btn-secondary"><i class="fas fa-undo"></i></a>
+                <a href="{{ route('directions.company.index', $company->url_company) }}" class="btn btn-secondary"><i class="fas fa-undo"></i></a>
             </div>
         </div>
 @stop
 @section('content')
     <div class="card">
         <div class="card-header">
-            <form action="{{ route('directions.company.search', $company->url_company) }}" method="post" class="form form-inline">
+            <form action="{{ route('managements.direction.search', $direction->url_direction) }}" method="post" class="form form-inline">
             @csrf
                 <div class="input-group">
-                    <input type="text" name="filter" placeholder="Diretoria" class="form-control" aria-describedby="basic-addon2" value="{{ $filters['filter'] ?? '' }}">
+                    <input type="text" name="filter" placeholder="Gerência" class="form-control" aria-describedby="basic-addon2" value="{{ $filters['filter'] ?? '' }}">
                     <div class="input-group-append">
                         <button class="input-group-text" id="basic-addon2"><i class="fas fa-search"></i></button>
                     </div>
@@ -41,30 +42,30 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th>Diretoria</th>
+                        <th>Gerencia</th>
                         <th>Centro de Custo</th>
                         <th width="300">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($directions as $direction)
+                    @foreach ($managements as $management)
                     <tr>
                         <td>
-                            {{ $direction->name_direction }}
+                            {{ $management->name_management }}
                         </td>
                         <td>
-                            {{ $direction->cost_center }}
+                            {{ $management->cost_center }}
                         </td>
                         <td style="width=10px">
                             <div class="row justify-content-between">
                                 <div class="col-3">
-                                    <a href="{{ route('managements.direction.index', $direction->url_direction) }}" class="btn btn-primary"><i class="far fa-building"></i></a>
+                                    <a href="{{ route('departments.management.index', $management->url_management) }}" class="btn btn-primary"><i class="far fa-building"></i></a>
                                 </div>
                                 <div class="col-3">
-                                    <a href="{{ route('directions.company.edit', [$company->url_company, $direction->id]) }}" class="btn btn-info"><i class="far fa-edit"></i></a>
+                                    <a href="{{ route('managements.direction.edit', [$direction->url_direction, $management->id]) }}" class="btn btn-info"><i class="far fa-edit"></i></a>
                                 </div>
                                 <div class="col-3">
-                                    <a href="{{ route('directions.company.show', [$company->url_company, $direction->id]) }}" class="btn btn-warning"><i class="fas fa-info-circle"></i></a>
+                                    <a href="{{ route('managements.direction.show', [$direction->url_direction, $management->id]) }}" class="btn btn-warning"><i class="fas fa-info-circle"></i></a>
                                 </div>
                               </div>
                         </td>
@@ -75,9 +76,9 @@
         </div>
         <div class="card-footer">
             @if (isset($filters))
-                {{ $directions->appends($filters)->links() }}
+                {{ $managements->appends($filters)->links() }}
             @else
-                {{ $directions->links() }}
+                {{ $managements->links() }}
             @endif
         </div>
     </div>

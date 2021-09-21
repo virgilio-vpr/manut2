@@ -28,7 +28,7 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th width="300">logo</th>
+                        <th width="300">Logo</th>
                         <th>Empresa</th>
                         <th width="250">Ações</th>
                     </tr>
