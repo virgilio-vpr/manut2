@@ -1,16 +1,31 @@
 <?php
 
 use App\Http\Livewire\FormChoose;
+use App\Http\Livewire\UserLogin;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+// ===================================  Routes Logout  =========================================================
+Route::get('logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/');
+})->name('user.logout')->middleware('auth');
 
-// ===================================  Routes Livewire ===============================================
-Route::get('choose/{type_menu}', FormChoose::class)->name('choose.menu');
-Route::get('equipment/{type_menu}', FormChoose::class)->name('equipment.index');
+// ===================================  Routes Livewire Login====================================================
+Route::get('login', UserLogin::class)->name('login');
+
+// ===================================  Routes Livewire Menu ====================================================
+Route::get('choose/{type_menu}', FormChoose::class)->name('choose.menu')->middleware('auth');
+Route::get('equipment/{type_menu}', FormChoose::class)->name('equipment.index')->middleware('auth');
 
 
+// ===================================  Routes Laravel Controller ===============================================
 Route::prefix('admin')
         ->namespace('App\\Http\\Controllers\\Admin')
+        ->middleware('auth')
         ->group(function(){
 
      // ===================================  Routes Departments ===============================================
@@ -54,12 +69,14 @@ Route::prefix('admin')
     Route::post('companies', 'CompanyController@store')->name('companies.store');
     Route::get('companies', 'CompanyController@index')->name('companies.index');
 
-    Route::get('/', 'HomeController@home')->name('admin.home');
+    Route::get('/dashbord', 'HomeController@home')->name('admin.home');
 
 });
 
 
-
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
     return view('welcome');
 });
