@@ -11,15 +11,41 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+
+    public function role()
+    {
+        return $this->hasOne(Role::class);
+    }
+
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function search($filter = null, $roleId = null)
+    {
+        $results = $this->where('role_id', $roleId)
+                        ->where('name', 'LIKE', "%{$filter}%")
+                        ->orWhere('email', 'LIKE', "%{$filter}%")
+                        ->paginate();
+        return $results;
+    }
+
+
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'role_id',
+        'company_id',
         'name',
         'email',
         'password',
+        'section_name',
     ];
 
     /**

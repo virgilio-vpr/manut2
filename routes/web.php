@@ -28,7 +28,28 @@ Route::prefix('admin')
         ->middleware('auth')
         ->group(function(){
 
-     // ===================================  Routes Departments ===============================================
+    // ===================================  Routes Users x Role ===============================================
+    Route::get('roles/{id?}/users/create', 'UserController@create')->name('users.role.create');
+    Route::put('roles/{id}/users/{idUser}', 'UserController@update')->name('users.role.update');
+    Route::get('roles/{id}/users/{idUser}/edit', 'UserController@edit')->name('users.role.edit');
+    Route::any('roles/{id?}/search', 'UserController@search')->name('users.role.search');
+    Route::delete('roles/{id}/users/{idUser}', 'UserController@destroy')->name('users.role.destroy');
+    Route::get('roles/{id}/users/{idUser}', 'UserController@show')->name('users.role.show');
+    Route::post('roles/user', 'UserController@store')->name('users.role.store');
+    Route::post('role/user', 'UserController@selectuser')->name('users.role.select');
+    Route::get('roles/{id}/user/{idUser?}', 'UserController@index')->name('users.role.index');
+    Route::get('roles/user/all', 'UserController@usersAllList')->name('users.role.listAll');
+
+    // ===================================  Routes Role ================================================
+     Route::delete('roles/delete/{id}', 'RoleController@destroy')->name('roles.destroy');
+     Route::get('roles/create', 'RoleController@create')->name('roles.create');
+     Route::put('roles/{id}', 'RoleController@update')->name('roles.update');
+     Route::get('roles/{id}/edit', 'RoleController@edit')->name('roles.edit');
+     Route::any('roles/search', 'RoleController@search')->name('roles.search');
+     Route::post('roles', 'RoleController@store')->name('roles.store');
+     Route::get('roles', 'RoleController@index')->name('roles.index');
+
+    // ===================================  Routes Departments ===============================================
      Route::get('managements/{url_management}/departments/create', 'DepartmentController@create')->name('departments.management.create');
      Route::put('managements/{url_management}/departments/{managementId}/{iddepartment}', 'DepartmentController@update')->name('departments.management.update');
      Route::get('managements/{url_management}/departments/{idmanagement}/edit', 'DepartmentController@edit')->name('departments.management.edit');

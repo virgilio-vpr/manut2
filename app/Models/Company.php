@@ -13,6 +13,11 @@ class Company extends Model
         return $this->hasMany(Direction::class);
     }
 
+    public function users()
+    {
+        return $this->hasMany(users::class);
+    }
+
     public function search($filter = null)
     {
         $results = $this->where('name_company', 'LIKE', "%{$filter}%")

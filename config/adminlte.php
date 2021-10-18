@@ -236,6 +236,7 @@ return [
             'topnav_right' => true,
         ],
 
+
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
@@ -246,6 +247,44 @@ return [
             'text'        => 'Dashboard',
             'route'         => 'admin.home',
             'icon'        => 'fas fa-chart-line',
+        ],
+
+        [
+            'text'    => 'Usuários',
+            'icon'    => 'fas fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Função de Usuários',
+                    'icon_color' => 'yellow',
+                    'route' => 'roles.index',
+                ],
+                [
+                    'text'    => 'Listar Usuário',
+                    'icon_color' => 'green',
+                    'route' => 'users.role.listAll',
+                ],
+                [
+                    'text'    => 'Permissões',
+                    'icon_color' => 'red',
+                    'route' => ['choose.menu', ['type_menu' => 'direction']],
+                ],
+
+                // [
+                //     'text' => 'Editar',
+                //     'icon_color' => 'cyan',
+                //     'route' => ['choose.menu', ['type_menu' => 'management']],
+                // ],
+                // [
+                //     'text' => 'Remover',
+                //     'icon_color' => 'red',
+                //     'route' => ['choose.menu', ['type_menu' => 'department']],
+                // ],
+                // [
+                //     'text' => 'Suspender',
+                //     'icon_color' => 'yellow',
+                //     'route' => ['choose.menu', ['type_menu' => 'department']],
+                // ],
+            ],
         ],
 
         [
